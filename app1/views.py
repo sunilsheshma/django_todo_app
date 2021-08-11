@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpRequest
 from.models import Todo
 from django.contrib.auth.models import User,auth
-# Create your views here.
+
 
 def list_todo_items(request, username):
     todo_list = Todo.objects.filter(name=username)
