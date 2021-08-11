@@ -1,0 +1,51 @@
+{% extends 'basic.html' %}
+{% block title %}
+sign up
+{% endblock %}
+
+{% block body %}
+ <div>
+        {% for message in messages %}
+        <h3>{{message}}</h3>
+        {% endfor %}
+ </div>
+
+<form  action="signup" method="POST">
+     {% csrf_token %}
+        <b>Please fill in this form to create an account.</b>
+
+  <div class="form-group col-md-5">
+    <label for="firstname">First Name</label>
+       <input type="text" class="form-control" id="firstname" placeholder="Enter first name" name="firstname" required>
+  </div>
+
+    <div class="form-group col-md-5">
+    <label for="lastname">First Name</label>
+       <input type="text" class="form-control" id="lastname" placeholder="Enter last name" name="lastname" required>
+  </div>
+
+    <div class="form-group col-md-5">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+  </div>
+
+    <div class="form-group col-md-5">
+    <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+    </div>
+
+  <div class="form-group col-md-5">
+    <label for="password1">Password</label>
+
+    <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter Password" required>
+  </div>
+
+    <div class="form-group col-md-5">
+    <label for="Password2">Confirm Password</label>
+    <input type="password" class="form-control" id="Password2" name="password2" placeholder="Enter Password" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Signup</button>
+</form>
+
+{% endblock %}

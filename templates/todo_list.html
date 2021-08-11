@@ -1,0 +1,86 @@
+{% extends 'basic.html' %}
+{% block title %}
+Todos
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1 align="center">Todo List</h1>
+
+    <div class="row mt-2">
+      <!-- Input box -->
+      <div class="col-md-7">
+        <form action="{% url 'insert_todo_item' user.username %}" method="post" autocomplete="off">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="inpNewTask">New Task</label>
+            <input type="text" name="content" class="form-control" id="inpNewTask"
+              placeholder="Enter the name of the task">
+            <small class="form-text text-muted">A short one line description of your task</small>
+          </div>
+          <button type="submit" class="btn btn-success">
+            Add
+          </button>
+        </form>
+
+        <div class="row mt-2 " >
+           <div class="col-md-8 text-right">
+        <a href="{% url 'delete_completed' user.username%}">
+          <button type="submit" class="btn btn-danger">
+            Clear completed
+          </button>
+        </a>
+           </div>
+           <div class="col-md-4 text-left">
+        <a href="{% url 'delete_all' user.username%}">
+          <button type="submit" class="btn btn-danger">
+            Clear all
+          </button>
+        </a>
+           </div>
+        </div>
+      </div>
+    </div>
+     {% for todo in todo_list%}
+    <div class="row mt-4 mr-0 pr-0" >
+      <!-- Task List -->
+
+      <div class="col-md-6">
+          <div class="card">
+            {% if todo.complete %}
+            <div class="card-body bg-success text-white" >
+              {{todo.content}}
+            </div>
+            {% else %}
+              <div class="card-body">
+              {{todo.content}}
+            </div>
+            {% endif %}
+          </div>
+      </div>
+      <div class="col-md-1 text-info">
+        {% if todo.complete is False %}
+        <a href="{% url 'complete_todo_item' user.username todo.id %}">
+          <button type="submit" class="btn btn-outline-success">
+            done
+          </button>
+        </a>
+        {% endif %}
+        </a>
+      </div>
+
+       <div class="col-md-1 text-info">
+
+        <a href="{% url 'delete_todo_item' user.username todo.id %}">
+          <button type="submit" class="btn btn-outline-secondary">
+             Remove
+          </button>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
